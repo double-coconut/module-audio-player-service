@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Object = UnityEngine.Object;
 
-namespace Services.AudioPlayer.Configs
+namespace AudioPlayerService.Runtime.Configs
 {
     public class SfxPlayerConfig : ScriptableObject
     {

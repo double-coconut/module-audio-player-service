@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
-using Services.AudioPlayer.Configs;
-using Services.AudioPlayer.Helpers;
+using AudioPlayerService.Runtime.Configs;
+using AudioPlayerService.Runtime.Helpers;
 using UnityEditor;
 using UnityEngine;
 
-namespace Services.AudioPlayer.Editor
+namespace AudioPlayerService.Editor
 {
     [CustomEditor(typeof(SfxPlayerConfig))]
     [CanEditMultipleObjects]

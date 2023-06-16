@@ -1,4 +1,4 @@
-namespace Services.AudioPlayer
+namespace AudioPlayerService.Runtime
 {
     //This values are come from Exposed parameters
     public class Channels

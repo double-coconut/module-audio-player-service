@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Services.AudioPlayer
+namespace AudioPlayerService.Runtime
 {
     internal class PlayingSfx : IDisposable
     {

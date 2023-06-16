@@ -2,7 +2,7 @@
     "name": "AudioPlayerService.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:743a009f3688f4d1cb65e7390294e2de"
+        "AudioPlayerService"
     ],
     "includePlatforms": [
         "Editor"

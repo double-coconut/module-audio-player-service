@@ -1,7 +1,7 @@
-using Services.AudioPlayer.Configs;
+using AudioPlayerService.Runtime.Configs;
 using Zenject;
 
-namespace Services.AudioPlayer
+namespace AudioPlayerService.Runtime
 {
     public class SfxInstaller : Installer<SfxPlayerConfig,SfxInstaller>
     {

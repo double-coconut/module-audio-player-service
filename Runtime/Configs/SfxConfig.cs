@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Services.AudioPlayer.Configs
+namespace AudioPlayerService.Runtime.Configs
 {
     [CreateAssetMenu(fileName = "Sound", menuName = "Effects/SFX Config")]
     public class SfxConfig : ScriptableObject

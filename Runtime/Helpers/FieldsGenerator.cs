@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 
 #if UNITY_EDITOR
-namespace Services.AudioPlayer.Helpers
+namespace AudioPlayerService.Runtime.Helpers
 {
     public class FieldsGenerator
     {

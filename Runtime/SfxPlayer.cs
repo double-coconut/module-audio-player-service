@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Services.AudioPlayer.Configs;
+using AudioPlayerService.Runtime.Configs;
 using UniRx;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 
-namespace Services.AudioPlayer
+namespace AudioPlayerService.Runtime
 {
     public class SfxPlayer : IInitializable, IDisposable
     {
