@@ -80,6 +80,7 @@ namespace AudioPlayerService.Editor
                             if (configs.Count > 0)
                             {
                                 sfxPlayerConfig.AddOrUpdateConfigs(configs);
+                                EditorUtility.SetDirty(sfxPlayerConfig);
                             }
                         }
                     }
