@@ -2,8 +2,8 @@
     "name": "AudioPlayerService",
     "rootNamespace": "",
     "references": [
-        "UniRx",
-        "Zenject"
+        "Zenject",
+        "R3.Unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

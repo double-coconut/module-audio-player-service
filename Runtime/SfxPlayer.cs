@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AudioPlayerService.Runtime.Configs;
-using UniRx;
+using R3;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -30,9 +30,9 @@ namespace AudioPlayerService.Runtime
         private Subject<Tuple<string, float>> _volumeChangeInternalSubject;
 
 
-        public IObservable<SfxConfig> PlayStream => _playInternalSubject;
-        public IObservable<SfxConfig> StopStream => _stopInternalSubject;
-        public IObservable<Tuple<string, float>> VolumeChangeStream => _volumeChangeInternalSubject;
+        public Observable<SfxConfig> PlayStream => _playInternalSubject;
+        public Observable<SfxConfig> StopStream => _stopInternalSubject;
+        public Observable<Tuple<string, float>> VolumeChangeStream => _volumeChangeInternalSubject;
 
 
         public SfxPlayer(SfxPlayerConfig config)
@@ -44,12 +44,15 @@ namespace AudioPlayerService.Runtime
 
             _sounds = new Dictionary<string, SfxConfig>();
             AddSfxPlayerConfigSounds(_config.SoundsConfigs);
-            
-            _playInternalSubject = new Subject<SfxConfig>().AddTo(_disposable);
-            _stopInternalSubject = new Subject<SfxConfig>().AddTo(_disposable);
-            _volumeChangeInternalSubject = new Subject<Tuple<string, float>>().AddTo(_disposable);
+
+            _playInternalSubject = new Subject<SfxConfig>();
+            _playInternalSubject.AddTo(_disposable);
+            _stopInternalSubject = new Subject<SfxConfig>();
+            _stopInternalSubject.AddTo(_disposable);
+            _volumeChangeInternalSubject = new Subject<Tuple<string, float>>();
+            _volumeChangeInternalSubject.AddTo(_disposable);
         }
-        
+
         /// <summary>
         /// This method calls by Zenject
         /// </summary>
@@ -90,7 +93,7 @@ namespace AudioPlayerService.Runtime
                 _sounds[sfxConfig.name] = sfxConfig;
             }
         }
-        
+
         /// <summary>
         /// Plays sound by name of the clip.
         /// </summary>
@@ -192,7 +195,7 @@ namespace AudioPlayerService.Runtime
         {
             ChangeVolumeSubject?.OnNext(new Tuple<string, float>(channel, volume));
         }
-        
+
         /// <summary>
         /// Get current volume of the audio channel inside of 0-1 range.
         /// </summary>
@@ -478,13 +481,14 @@ namespace AudioPlayerService.Runtime
             Subject<Unit> handler = new Subject<Unit>();
             handler.Subscribe(_ =>
             {
-                if (source.isPlaying) return;
+                if (source == null || source.isPlaying) return;
                 StopInternal(config, instanceId);
                 onEnd?.Invoke();
             }).AddTo(_disposable);
-
-            return Observable.EveryEndOfFrame().Subscribe(_ => { handler.OnNext(Unit.Default); }).AddTo(_disposable);
-            ;
+            IDisposable stream = Observable.EveryUpdate(UnityFrameProvider.Update)
+                .Subscribe(_ => { handler.OnNext(Unit.Default); });
+            stream.AddTo(_disposable);
+            return stream;
         }
 
         /// <summary>
