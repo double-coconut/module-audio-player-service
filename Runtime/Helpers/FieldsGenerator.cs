@@ -6,6 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
+#if DC_LOGGING
+using Logger = DCLogger.Runtime.Logger;
+#endif
 
 #if UNITY_EDITOR
 namespace AudioPlayerService.Runtime.Helpers
@@ -17,19 +20,31 @@ namespace AudioPlayerService.Runtime.Helpers
         {
             if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
             {
+#if DC_LOGGING
+                Logger.LogError("Your Enum name is wrong or empty", AudioPlayerLogChannels.FieldsGenerator);
+#else
                 Debug.LogError("Your Enum name is wrong or empty");
+#endif
                 return;
             }
 
             if (fields == null)
             {
+#if DC_LOGGING
+                Logger.LogError("Your fields array is null", AudioPlayerLogChannels.FieldsGenerator);
+#else
                 Debug.LogError("Your fields array is null");
+#endif
                 return;
             }
 
             if (fields.Count == 0)
             {
+#if DC_LOGGING
+                Logger.LogError("Your fields array is empty", AudioPlayerLogChannels.FieldsGenerator);
+#else
                 Debug.LogError("Your fields array is empty");
+#endif
             }
 
             name = name.First().ToString().ToUpper() + name.Substring(1);
@@ -46,9 +61,8 @@ namespace AudioPlayerService.Runtime.Helpers
             };
             for (int i = 0; i < n; i++)
             {
-
                 string uName = uniqueFieldNames[i];
-                if(Regex.IsMatch(uName[0].ToString(), @"^\d$"))
+                if (Regex.IsMatch(uName[0].ToString(), @"^\d$"))
                 {
                     StringBuilder nameBuilder = new StringBuilder();
                     bool previousNumber = true;
@@ -65,7 +79,7 @@ namespace AudioPlayerService.Runtime.Helpers
 
                     uniqueFieldNames[i] = nameBuilder.ToString();
                 }
-                
+
                 for (int j = 0; j < charsToRemove.Length; j++)
                 {
                     if (uniqueFieldNames[i].Contains(charsToRemove[j]))
@@ -83,7 +97,7 @@ namespace AudioPlayerService.Runtime.Helpers
                 {
                     uniqueFieldNames[i] = uniqueFieldNames[i].Replace("-", "_");
                 }
-               
+
                 int index = 0;
                 for (int j = 0; j < n; j++)
                 {
@@ -94,7 +108,7 @@ namespace AudioPlayerService.Runtime.Helpers
                     }
                 }
             }
-            
+
 
             if (!Directory.Exists(path))
             {

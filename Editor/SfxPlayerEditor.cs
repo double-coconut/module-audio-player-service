@@ -4,6 +4,7 @@ using AudioPlayerService.Runtime.Configs;
 using AudioPlayerService.Runtime.Helpers;
 using UnityEditor;
 using UnityEngine;
+using Logger = DCLogger.Runtime.Logger;
 
 namespace AudioPlayerService.Editor
 {
@@ -36,7 +37,11 @@ namespace AudioPlayerService.Editor
             SfxPlayerConfig sfxPlayerConfig = serializedObject.targetObject as SfxPlayerConfig;
             if (sfxPlayerConfig == null)
             {
+#if DC_LOGGING
+                Logger.LogError("The SfxPlayerConfig not found!", AudioPlayerLogChannels.EditorTool);
+#else
                 Debug.LogError("The SfxPlayerConfig not found!");
+#endif
                 return;
             }
 

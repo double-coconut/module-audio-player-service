@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bd957d0f0e4892993f99b70b988385, type: 3}
+  m_Name: AudioPlayerLogChannels
+  m_EditorClassIdentifier: 
+  ModuleName: AudioPlayer
+  Channels:
+  - Id: f5f55242-576a-4a0e-95d7-0747b6e99fcc
+    Name: Default
+    OriginalName: Default
+    Enabled: 1
+    IsEditing: 0
+    ChannelColor: {r: 0.23140419, g: 0.764151, b: 0.010813437, a: 1}
+  - Id: 27302ffd-a71b-4d66-a722-067d96196bee
+    Name: Error
+    OriginalName: Error
+    Enabled: 1
+    IsEditing: 0
+    ChannelColor: {r: 0.8867924, g: 0.0292809, b: 0.0292809, a: 1}
+  - Id: 9a309248-214e-4672-b9ed-026f80393112
+    Name: FieldsGenerator
+    OriginalName: FieldsGenerator
+    Enabled: 1
+    IsEditing: 0
+    ChannelColor: {r: 0.8018868, g: 0.40757588, b: 0, a: 1}
+  - Id: 22e5749c-274c-43a4-acc8-65b3daa58fa4
+    Name: EditorTool
+    OriginalName: EditorTool
+    Enabled: 1
+    IsEditing: 0
+    ChannelColor: {r: 0.8113208, g: 0.019134922, b: 0.7459878, a: 1}

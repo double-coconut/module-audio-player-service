@@ -2,7 +2,8 @@
     "name": "AudioPlayerService.Editor",
     "rootNamespace": "",
     "references": [
-        "AudioPlayerService"
+        "AudioPlayerService",
+        "DCLogger.Runtime"
     ],
     "includePlatforms": [
         "Editor"

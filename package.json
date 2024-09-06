@@ -1,12 +1,13 @@
 {
   "name": "com.doublecoconut.audioplayerservice",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "displayName": "Audio Player Service",
   "description": "Audio Player Service",
   "unity": "2020.3",
   "dependencies": {
     "com.github-glitchenzo.nugetforunity": "4.1.1",
     "com.cysharp.r3": "1.1.16",
-    "com.svermeulen.extenject": "9.2.0-stcf3"
+    "com.svermeulen.extenject": "9.2.0-stcf3",
+    "com.doublecoconut.dclogger": "1.0.5"
   }
 }

@@ -4,6 +4,7 @@ using AudioPlayerService.Runtime.Configs;
 using R3;
 using UnityEngine;
 using Zenject;
+using Logger = DCLogger.Runtime.Logger;
 using Object = UnityEngine.Object;
 
 namespace AudioPlayerService.Runtime
@@ -143,7 +144,12 @@ namespace AudioPlayerService.Runtime
         {
             if (!_sounds.TryGetValue(sound, out SfxConfig config))
             {
-                Debug.LogError($"There is not sound with name : {sound}! Please check your configs.");
+#if DC_LOGGING
+                Logger.LogError($"There is not sound with name : {sound}! Please check your configs.",
+                    AudioPlayerLogChannels.Error);
+#else
+                 Debug.LogError($"There is not sound with name : {sound}! Please check your configs.");
+#endif
                 return false;
             }
 
@@ -216,7 +222,12 @@ namespace AudioPlayerService.Runtime
         {
             if (!_sounds.TryGetValue(playEvent.Sound, out SfxConfig config))
             {
+#if DC_LOGGING
+                Logger.LogError($"There is not sound to Play with name : {playEvent.Sound}! Please check your configs.",
+                    AudioPlayerLogChannels.Error);
+#else
                 Debug.LogError($"There is not sound to Play with name : {playEvent.Sound}! Please check your configs.");
+#endif
                 playEvent.OnEnd?.Invoke();
                 return;
             }
@@ -237,7 +248,11 @@ namespace AudioPlayerService.Runtime
         {
             if (config == null)
             {
+#if DC_LOGGING
+                Logger.LogError("Config is null!", AudioPlayerLogChannels.Error);
+#else
                 Debug.LogError("Config is null!");
+#endif
                 return;
             }
 
@@ -274,7 +289,11 @@ namespace AudioPlayerService.Runtime
 
             playingSfxes.Add(sourceId, sfx);
 #if LOG_AUDIO
+#if DC_LOGGING
+            Logger.Log($"<color=green>Play {config.name} sfx</color>", AudioPlayerLogChannels.Default);
+#else
             Debug.Log($"<color=green>Play {config.name} sfx</color>");
+#endif
 #endif
             _playInternalSubject?.OnNext(config);
         }
@@ -306,7 +325,12 @@ namespace AudioPlayerService.Runtime
         {
             if (!_sounds.TryGetValue(sound, out SfxConfig config))
             {
-                Debug.LogError($"There is not sound to Stop with name : {sound}! Please check your configs.");
+#if DC_LOGGING
+                Logger.LogError($"There is not sound to Stop with name : {sound}! Please check your configs.",
+                    AudioPlayerLogChannels.Error);
+#else
+               Debug.LogError($"There is not sound to Stop with name : {sound}! Please check your configs.");
+#endif
                 return;
             }
 
@@ -323,7 +347,11 @@ namespace AudioPlayerService.Runtime
             int id = config.GetInstanceID();
             if (!_playingSfx.TryGetValue(id, out Dictionary<int, PlayingSfx> sfxs))
             {
+#if DC_LOGGING
+                Logger.LogWarning($"There is not any source with config ID : {id}", AudioPlayerLogChannels.Default);
+#else
                 Debug.LogWarning($"There is not any source with config ID : {id}");
+#endif
                 return;
             }
 
@@ -334,7 +362,11 @@ namespace AudioPlayerService.Runtime
                     sfxPair.Value.Dispose();
                     ConsumeSource(sfxPair.Value.Source);
 #if LOG_AUDIO
+#if DC_LOGGING
+                    Logger.Log($"<color=yellow>Stop {config.name} sfx</color>", AudioPlayerLogChannels.Default);
+#else
                     Debug.Log($"<color=yellow>Stop {config.name} sfx</color>");
+#endif
 #endif
                     _stopInternalSubject?.OnNext(config);
                 }
@@ -346,7 +378,11 @@ namespace AudioPlayerService.Runtime
 
             if (!sfxs.TryGetValue(sfxId, out PlayingSfx sfx))
             {
+#if DC_LOGGING
+                Logger.LogError($"There is not audio source with Instance Id : {sfxId}!", AudioPlayerLogChannels.Error);
+#else
                 Debug.LogError($"There is not audio source with Instance Id : {sfxId}!");
+#endif
                 return;
             }
 
@@ -354,7 +390,12 @@ namespace AudioPlayerService.Runtime
             ConsumeSource(sfx.Source);
             sfxs.Remove(sfxId);
 #if LOG_AUDIO
+#if DC_LOGGING
+            Logger.Log($"<color=yellow>Stop {config.name} sfx</color>", AudioPlayerLogChannels.Default);
+#else
             Debug.Log($"<color=yellow>Stop {config.name} sfx</color>");
+#endif
+
 #endif
             _stopInternalSubject?.OnNext(config);
             if (sfxs.Count <= 0)
@@ -373,7 +414,11 @@ namespace AudioPlayerService.Runtime
             int volume = mute ? -80 : 0;
             _config.MasterMixer.SetFloat(channel, volume);
 #if LOG_AUDIO
+#if DC_LOGGING
+            Logger.Log($"<color=cyan>Set {channel} channel is muted : {mute}</color>", AudioPlayerLogChannels.Default);
+#else
             Debug.Log($"<color=cyan>Set {channel} channel is muted : {mute}</color>");
+#endif
 #endif
         }
 

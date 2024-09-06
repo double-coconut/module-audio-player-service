@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Zenject",
-        "R3.Unity"
+        "R3.Unity",
+        "DCLogger.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
